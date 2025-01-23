@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<f:view>
+    <c:if test="${homeBean.user.role == 'Administrator'}">
+        <h:head>
+            <title> User Form </title>
+            <h:outputStylesheet library="css" name="styles.css"/>
+        </h:head>
+        <h:body>
+            <div>
+                <h3 style="text-align: center">Create a new user or update an existing one.</h3>
+
+                <h:form id="userForm">
+                    <h:messages id="messages" globalOnly="true" style="text-align: center"/>
+                    <h:panelGrid columns="3" cellpadding="3" style="margin: 0 auto;">
+                        <h:outputLabel for="username" value="Username"/>
+                        <h:inputText id="username" value="#{usersBean.username}" styleClass="styledInput"/>
+                        <h:message for="username"/>
+
+                        <h:outputLabel for="password" value="Password"/>
+                        <h:inputText id="password" value="#{usersBean.password}" styleClass="styledInput"/>
+                        <h:message for="password"/>
+
+                        <h:outputLabel for="role" value="Role"/>
+                        <h:inputText id="role" value="#{usersBean.role}" styleClass="styledInput"/>
+                        <h:message for="role"/>
+
+                        <h:commandButton id="submit-userForm" update="@form" value="Submit changes" action="#{usersBean.createUser()}" styleClass="styledButton"/>
+                    </h:panelGrid>
+                </h:form>
+                <h:form>
+                    <h:commandButton value="back" action="${homeBean.goToUsers()}" styleClass="styledButton" style="width: 75px; margin: 10px;"/>
+                </h:form>
+            </div>
+        </h:body>
+    </c:if>
+</f:view>
+</html>

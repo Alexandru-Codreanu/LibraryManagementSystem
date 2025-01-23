@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<f:view>
+    <c:if test="${homeBean.loggedIn}">
+        <h:head>
+            <title>Home</title>
+            <h:outputStylesheet library="css" name="styles.css"/>
+        </h:head>
+        <h:body>
+            <h1 style="text-align: center">Welcome, ${homeBean.user.name}!</h1>
+            <h:form style="text-align: center">
+                <h:panelGrid columns="1" cellpadding="3" style="margin: 0 auto;">
+                    <c:choose>
+                        <c:when test="${homeBean.user.role == 'Administrator'}">
+                            <h:commandButton update="@form" action="#{homeBean.goToBooks()}" value="Go to Books" styleClass="styledButton"/>
+                            <h:commandButton update="@form" action="#{homeBean.goToLendings()}" value="Go to Lendings" styleClass="styledButton"/>
+                            <h:commandButton update="@form" action="#{homeBean.goToUsers()}" value="Go to Users" styleClass="styledButton"/>
+                        </c:when>
+                        <c:when test="${homeBean.user.role == 'Librarian'}">
+                            <h:commandButton update="@form" action="#{homeBean.goToBooks()}" value="Go to Books" styleClass="styledButton"/>
+                            <h:commandButton update="@form" action="#{homeBean.goToLendings()}" value="Go to Lendings" styleClass="styledButton"/>
+                        </c:when>
+                        <c:when test="${homeBean.user.role == 'Normal'}">
+                            <h:commandButton update="@form" action="#{homeBean.goToBooks()}" value="Go to Books" styleClass="styledButton"/>
+                            <h:commandButton update="@form" action="#{homeBean.goToLendings()}" value="Go to Lendings" styleClass="styledButton"/>
+                        </c:when>
+                    </c:choose>
+                    <h:form>
+                        <h:commandButton value="Back" action="${homeBean.goToLogin()}" styleClass="styledButton"/>
+                    </h:form>
+                </h:panelGrid>
+            </h:form>
+        </h:body>
+    </c:if>
+</f:view>
+</html>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<f:view>
+    <c:if test="${homeBean.user.role == 'Librarian'}">
+        <h:head>
+            <title>Lending Form</title>
+            <h:outputStylesheet library="css" name="styles.css"/>
+        </h:head>
+        <h:body>
+            <h:outputLabel>
+                <div>
+                    <h3 style="text-align: center">Login or Register</h3>
+                    <h:form id="lend">
+                        <h:messages id="messages" globalOnly="true" style="text-align: center"/>
+                        <h:panelGrid columns="3" cellpadding="3" style="margin: 0 auto;">
+                            <h:outputLabel for="amount" value="Amount"/>
+                            <h:inputText id="amount" value="#{lendingsBean.amount}" styleClass="styledInput"/>
+                            <h:message for="amount"/>
+
+                            <h:outputLabel for="lending" value="Lending"/>
+                            <h:selectOneMenu id="lending" value="${lendingsBean.lending}" converter="LendingConverter">
+                                <f:selectItems value="${lendingsBean.lendingsWithoutFines}" var="lending" itemValue="${lending}" itemLabel="${lending.toString()}"/>
+                            </h:selectOneMenu>
+                            <h:message for="lending"/>
+
+                            <h:outputLabel for="reason" value="Reason"/>
+                            <h:selectOneMenu id="reason" value="${lendingsBean.reason}">
+                                <f:selectItems value="${lendingsBean.reasons}"/>
+                            </h:selectOneMenu>
+                            <h:message for="reason"/>
+                            <h:commandButton id="submit-fine" update="@form" value="Fine" action="#{lendingsBean.createFine()}" styleClass="styledButton"/>
+                        </h:panelGrid>
+                    </h:form>
+                    <h:form>
+                        <h:commandButton value="Back" action="${homeBean.goToLendings()}" styleClass="styledButton" style="width: 75px; margin: 3px;"/>
+                    </h:form>
+                </div>
+            </h:outputLabel>
+        </h:body>
+    </c:if>
+</f:view>
+</html>

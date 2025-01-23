@@ -1,0 +1,43 @@
+html{
+    background: lightblue;
+    font-family: Candara;
+}
+
+h3, h1{
+    text-shadow: 1px 1px 3px rgba(7, 0, 128, 1);
+}
+
+.styledButton{
+    margin:auto;
+    display:block;
+    outline: none;
+    cursor: pointer;
+    padding: 0 16px;
+    background-color: #0070d2;
+    border-radius: 0.25rem;
+    border: 1px solid #0070d2;
+    color: #fff;
+    font-size: 13px;
+    line-height: 30px;
+    font-weight: 400;
+    width: 100%;
+    text-align: center;
+}
+
+.styledInput{
+    margin: auto;
+    padding: 0 16px 0 12px;
+    width: 90%;
+    line-height: 30px;
+    height: 32px;
+    border: 1px solid #dddbda;
+    border-radius: 4px;
+    background-color: #fff;
+    color: rgb(8, 7, 7);
+    transition: border .1s linear,background-color .1s linear;
+}
+
+.holder{
+    text-align: center;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}

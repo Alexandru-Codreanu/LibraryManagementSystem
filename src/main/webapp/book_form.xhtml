@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<f:view>
+    <c:if test="${homeBean.user.role == 'Administrator'}">
+        <h:head>
+            <title>Book Form</title>
+            <h:outputStylesheet library="css" name="styles.css"/>
+        </h:head>
+        <h:body>
+                <div>
+                    <h3 style="text-align: center">Create a new book or update an existing one.</h3>
+                    <h:form id="bookForm">
+                        <h:messages id="messages" globalOnly="true" style="text-align: center"/>
+                        <h:panelGrid columns="3" cellpadding="3" style="margin: 0 auto;">
+                            <h:outputLabel for="title" value="Title"/>
+                            <h:inputText id="title" value="#{booksBean.title}" styleClass="styledInput"/>
+                            <h:message for="title"/>
+
+                            <h:outputLabel for="description" value="Description"/>
+                            <h:inputText id="description" value="#{booksBean.description}" styleClass="styledInput"/>
+                            <h:message for="description"/>
+
+                            <h:outputLabel for="author" value="Author"/>
+                            <h:inputText id="author" value="#{booksBean.author}" styleClass="styledInput"/>
+                            <h:message for="author"/>
+
+                            <h:outputLabel for="publisher" value="Publisher"/>
+                            <h:inputText id="publisher" value="#{booksBean.publisher}" styleClass="styledInput"/>
+                            <h:message for="publisher"/>
+
+                            <h:outputLabel for="genre" value="Genre"/>
+                            <h:inputText id="genre" value="#{booksBean.genre}" styleClass="styledInput"/>
+                            <h:message for="genre"/>
+
+                            <h:outputLabel for="title" value="Published Date (yyyy-mm-dd)"/>
+                            <h:inputText id="publishedDate" value="#{booksBean.publishedDate}" styleClass="styledInput"/>
+                            <h:message for="publishedDate"/>
+
+                            <h:outputLabel for="stock" value="Stock"/>
+                            <h:inputText id="stock" value="#{booksBean.stock}" styleClass="styledInput"/>
+                            <h:message for="stock"/>
+
+                            <h:commandButton id="submit-booksForm" update="@form" value="Submit changes" action="#{booksBean.createBook()}" styleClass="styledButton"/>
+                        </h:panelGrid>
+                    </h:form>
+                    <h:form>
+                        <h:commandButton id="back" value="Back" action="#{homeBean.goToBooks()}" styleClass="styledButton" style="width: 75px; margin: 10px;"/>
+                    </h:form>
+                </div>
+        </h:body>
+    </c:if>
+</f:view>
+</html>

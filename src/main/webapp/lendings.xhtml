@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<f:view>
+    <h:head>
+        <title>Lendings</title>
+        <h:outputStylesheet library="css" name="styles.css"/>
+    </h:head>
+    <h:body>
+        <h1>Lendings</h1>
+        <h:form>
+            <h:commandButton value="Back" action="${homeBean.goToHome()}" styleClass="styledButton" style="width: 75px; margin: 3px;"/>
+        </h:form>
+        <c:if test="${homeBean.user.role == 'Librarian'}">
+            <h:form>
+                <h:commandButton value="Add Fine" action="${homeBean.goToLendingFineForm()}" styleClass="styledButton" style="width: 75px; margin: 3px;"/>
+            </h:form>
+        </c:if>
+        <table border="1">
+            <thead>
+            <tr>
+                <th>User</th>
+                <th>Book</th>
+                <th>Status</th>
+                <th>Borrow Date</th>
+                <th>Return Date</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach var="lending" items="${lendingsBean.lendings}">
+                <tr>
+                    <td>${lending.userid.name}</td>
+                    <td>${lending.bookid.title}</td>
+                    <td>${lending.status}</td>
+                    <td>${lending.borrowDate}</td>
+                    <td>${lending.returnDate}</td>
+                    <td>
+                        <h:form>
+                            <c:if test="${homeBean.user.role == 'Normal'}">
+                                <c:if test="${lending.status == 'Lent'}">
+                                    <h:commandButton action="${lendingsBean.ChangeStatus(lending,'Pending')}" value="Sent Back" styleClass="styledButton"/>
+                                </c:if>
+                                <c:if test="${lending.status == 'Fined'}">
+                                    <h:commandButton action="${lendingsBean.ChangeStatus(lending,'Payment Sent')}" value="Sent Payment" styleClass="styledButton"/>
+                                </c:if>
+                            </c:if>
+
+                            <c:if test="${homeBean.user.role == 'Librarian'}">
+                                <c:if test="${lending.status == 'Pending'}">
+                                    <h:commandButton action="${lendingsBean.ChangeStatus(lending,'Returned')}" value="Mark Returned" styleClass="styledButton"/>
+                                </c:if>
+                                <c:if test="${lending.status == 'Lent'}">
+                                    <h:commandButton action="${lendingsBean.ChangeStatus(lending,'Fined')}" value="Mark Fined" styleClass="styledButton"/>
+                                </c:if>
+                                <c:if test="${lending.status == 'Payment Sent'}">
+                                    <h:commandButton action="${lendingsBean.ChangeStatus(lending,'Payed')}" value="Mark Payed" styleClass="styledButton"/>
+                                </c:if>
+                            </c:if>
+                            <c:if test="${homeBean.user.role == 'Administrator'}">
+                                <h:commandButton action="${lendingsBean.deleteLending(lending)}" value="Delete" styleClass="styledButton"/>
+                            </c:if>
+                        </h:form>
+                    </td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </h:body>
+</f:view>
+</html>

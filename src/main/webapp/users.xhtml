@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<f:view>
+   <c:if test="${homeBean.user.role == 'Administrator'}">
+      <h:head>
+         <title>Users</title>
+         <h:outputStylesheet library="css" name="styles.css"/>
+      </h:head>
+      <h:body>
+         <h3> Users </h3>
+         <h:form>
+            <h:commandButton value="Back" action="${homeBean.goToHome()}" styleClass="styledButton" style="width: 75px; margin: 5px;"/>
+         </h:form>
+         <h:form id="userForm">
+            <h:commandButton update="@form" value="Add User" action="${homeBean.goToUsersForm()}" styleClass="styledButton" style="width: 75px; margin: 5px;"/>
+            <table border="1">
+               <thead>
+               <tr>
+                  <th>Id</th>
+                  <th>Name</th>
+                  <th>Role</th>
+                  <th>Actions</th>
+               </tr>
+               </thead>
+               <tbody>
+               <c:forEach var="user" items="${usersBean.users}">
+                  <tr>
+                     <td>${user.id}</td>
+                     <td>${user.name}</td>
+                     <td>${user.role}</td>
+                     <td>
+                        <h:commandButton update="@form" value="Edit" action="${homeBean.goToUsersForm(user)}" styleClass="styledButton" style="height: 25px; margin: 3px;"/>
+                        <h:commandButton update="@form" value="Delete" action="${usersBean.deleteUser(user)}" styleClass="styledButton" style="height: 25px; margin: 3px;"/>
+
+                     </td>
+                  </tr>
+               </c:forEach>
+               </tbody>
+            </table>
+         </h:form>
+      </h:body>
+   </c:if>
+</f:view>
+</html>
